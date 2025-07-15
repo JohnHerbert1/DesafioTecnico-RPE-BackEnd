@@ -8,6 +8,15 @@ Este projeto implementa um pequeno sistema de gestão de **Clientes**, **Faturas
 
 Esta aplicação full‑stack simples permite:
 
+### Como rodar o projeto local
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/JohnHerbert1/DesafioTecnico-RPE-Front.git
+cd DesafioTecnico-RPE-Front
+```
+
 1. **Gerenciar Clientes**
 
    * Criar, listar, atualizar e bloquear clientes inadimplentes
