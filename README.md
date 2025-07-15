@@ -191,7 +191,12 @@ UPDATE cliente
 * ⚖️ Tratamento de erros padronizado (RFC 7807)
 ---
 
+### 📌 Link do projeto
+
+➡️ [https://github.com/JohnHerbert1/DesafioTecnico-RPE-Front](https://github.com/JohnHerbert1/DesafioTecnico-RPE-Front)
+
+---
 
 ## Desenvolvedor
 
-*John Herbert
+ ## John Herbert Freire Lourenço
