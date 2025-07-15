@@ -1,6 +1,6 @@
--- ===================================================================
--- 10 CLIENTES (idempotente: não duplica se já existir)
--- ===================================================================
+--
+-- 10 CLIENTES
+--
 INSERT INTO tb_clients (id, name, cpf, data_nascimento, status_bloqueio, limite_credito)
 VALUES
   ('44444444-444-4444-4444-444444444444', 'Daniela Lima',     '45678901234', '1992-03-10', 'ATIVO',     1500.00),
@@ -15,9 +15,9 @@ VALUES
   ('dddddddd-dddd-dddd-dddd-dddddddddddd', 'Mariana Castro',    '34567210987', '1975-01-29', 'BLOQUEIO',     0.00)
 ON CONFLICT (id) DO NOTHING;
 
--- ===================================================================
--- 10 FATURAS (idempotente: não duplica se já existir)
--- ===================================================================
+--
+-- 10 FATURAS
+--
 INSERT INTO tb_faturas (id, cliente_id, data_vencimento, data_pagamento, valor, status_fatura)
 VALUES
   ('f4-uuid-4444-4444-4444-444444444444', '44444444-444-4444-4444-444444444444', '2025-07-05', NULL,    750.00, 'B'),

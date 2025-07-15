@@ -62,7 +62,7 @@ class FaturaServiceTest {
         );
     }
 
-    /* Criar fatura */
+
     @Test
     void devePersistirFaturaEAssociarAoClienteQuandoClienteExiste() {
         when(clienteRepository.findById(client.getId())).thenReturn(Optional.of(client));
@@ -81,7 +81,7 @@ class FaturaServiceTest {
         assertThrows(ClientNotFoundException.class, () -> service.creat(dto));
     }
 
-    /* Registrar pagamento */
+
     @Test
     void deveAtualizarPagamentoEStatusQuandoRegistroPago() {
         when(faturaRepository.findById(fatura.getId())).thenReturn(Optional.of(fatura));
@@ -103,7 +103,7 @@ class FaturaServiceTest {
         assertThrows(FaturaNotExisteException.class, () -> service.registerPayment("invalid-id"));
     }
 
-    /* Verificar atraso */
+
     @Test
     void deveBloquearClienteQuandoAtrasoMaiorQueTresDias() {
         Fatura atrasada = new Fatura();
@@ -140,7 +140,7 @@ class FaturaServiceTest {
             service.verificarStatusDaFatura();
         }
 
-        // não altera status
+
         assertEquals(StatusFatura.B, limite.getStatusFatura());
         assertEquals(StatusBloqueio.ATIVO, client.getStatusBloqueio());
         verify(faturaRepository, never()).save(any());
@@ -148,10 +148,10 @@ class FaturaServiceTest {
     }
 
 
-    /* Listar faturas por cliente */
+
     @Test
     void deveListarFaturasDoClienteQuandoExistir() {
-        // prepara cliente com faturas
+
         Fatura outra = new Fatura();
         outra.setId("fat-2");
         outra.setCliente(client);
@@ -166,7 +166,7 @@ class FaturaServiceTest {
         assertTrue(list.stream().map(FaturaDTO::id).collect(Collectors.toList()).containsAll(List.of("fat-1", "fat-2")));
     }
 
-    /* Auxiliares */
+
     @Test
     void deveRetornarTodasAsFaturasComoDTOs() {
         when(faturaRepository.findAll()).thenReturn(List.of(fatura));

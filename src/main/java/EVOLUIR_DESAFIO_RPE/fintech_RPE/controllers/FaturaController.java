@@ -29,7 +29,6 @@ public class FaturaController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<FaturaDTO> getAllFaturas(){
-        faturaService.verificarStatusDaFatura();
         var todasAsFaturas = faturaService.getAll();
         return todasAsFaturas;
     }
@@ -37,7 +36,6 @@ public class FaturaController {
     @GetMapping("/atrasadas")
     @ResponseStatus(HttpStatus.OK)
     public List<FaturaDTO> getAllStatusAtrasado(){
-        faturaService.verificarStatusDaFatura();
         var todasAsFaturasAtrasadas = faturaService.findByStatus();
         return todasAsFaturasAtrasadas;
     }
@@ -45,7 +43,6 @@ public class FaturaController {
     @GetMapping("/clients/{clientId}")
     @ResponseStatus(HttpStatus.OK)
     public List<FaturaDTO> listAllClientFaturas(@PathVariable final String clientId){
-        faturaService.verificarStatusDaFatura();
         var todasAsFaturasClients = faturaService.listByClient(clientId);
         return todasAsFaturasClients;
     }
@@ -53,7 +50,6 @@ public class FaturaController {
     @PostMapping("/{faturaId}/pay")
     @ResponseStatus(HttpStatus.OK)
     public void payFatura(@PathVariable String faturaId) {
-        faturaService.verificarStatusDaFatura();
         faturaService.registerPayment(faturaId);
     }
 }
