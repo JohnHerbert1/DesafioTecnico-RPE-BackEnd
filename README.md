@@ -135,15 +135,14 @@ docker-compose up --build
 
 ## 🗄️ Banco de Dados & Migrações
 
-Scripts Flyway em `src/main/resources/db/migration/`:
-
-* `V1__create_tables.sql` — cria tabelas `cliente` e `fatura`
-* `V2__seed_data.sql` — dados de exemplo
+* cria tabelas `cliente` e `fatura`
+* `data.sql` — dados de exemplo
 ## Enum:
 
 [Enum Status Fatura: *A("Atrasada),P("Paga"),B("Aberto")]
 [Enum Status Bloqueio: *ATIVO("A"),BLOQUEI("B")]
 
+---
 
 ### 📃 Tabelas
 
