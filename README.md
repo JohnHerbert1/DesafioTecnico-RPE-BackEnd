@@ -1,74 +1,193 @@
 # 📊 Desafio Técnico RPE – Gestão de Clientes e Faturas
 
-Este projeto implementa um pequeno sistema de gestão de **Clientes**, **Faturas**, para uma fintech fictícia, conforme o escopo do desafio:
+Este projeto implementa um pequeno sistema de gestão de **Clientes**, **Faturas** e **Pagamentos** para uma fintech fictícia, conforme o escopo do desafio:
 
 ---
 
 ## 📋 Visão Geral
 
-Esta aplicação implementa um sistema full‑stack simples para:
+Esta aplicação full‑stack simples permite:
 
-1. **Gerenciar Clientes**  
-   - Criar, listar, atualizar e bloquear clientes inadimplentes  
-2. **Controlar Faturas**  
-   - Listar faturas por cliente, registrar pagamento e sinalizar atrasos  
-3. **Regras Automáticas**  
-   - Toda fatura com mais de 3 dias de atraso é marcada como “ATRASADA” e bloqueia o cliente  
-   - Clientes bloqueados têm seu limite de crédito zerado  
-   - Scheduler diário para verificação de atrasos
+1. **Gerenciar Clientes**
+
+   * Criar, listar, atualizar e bloquear clientes inadimplentes
+2. **Controlar Faturas**
+
+   * Listar faturas por cliente, registrar pagamento e sinalizar atrasos
+3. **Regras Automáticas**
+
+   * Toda fatura com mais de **3 dias** de atraso é marcada como **ATRASADA** e bloqueia o cliente
+   * Clientes bloqueados têm seu **limite de crédito zerado**
+   * **Scheduler diário** roda às 00:00 para aplicar essas regras
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-| Camada    | Tecnologias                                                        |
-|-----------|--------------------------------------------------------------------|
-| **Back‑End**  | ☕ Java 21 • 🌐 Spring Boot • 📦 Spring Data JPA • 🛠️ Flyway • 📖 Swagger • 🧪 JUnit  |
-| **Banco**     | 🗃️ PostgreSQL                                                      |
-| **Front‑End** | 💻 HTML5 • 🎨 CSS3 • 🌐 JavaScript (Fetch API)                           |
-| **Infra**     | 🐳 Docker • ⚓ Docker Compose                                         |
+| Camada        | Tecnologias                                                                          |
+| ------------- | ------------------------------------------------------------------------------------ |
+| **Back‑End**  | ☕ Java 21 • 🌐 Spring Boot • 📦 Spring Data JPA • 🛠️ Flyway • 📖 Swagger • 🧪 JUnit |
+| **Banco**     | 💃 PostgreSQL                                                                        |
+| **Front‑End** | 💻 HTML5 • 🎨 CSS3 • 🌐 JavaScript (Fetch API)                                       |
+| **Infra**     | 🐳 Docker • ⚓ Docker Compose                                                         |
 
 ---
 
 ## 🚀 Funcionalidades Principais
 
-### Clientes
-- **GET** `/api/clientes` — lista todos  
-- **POST** `/api/clientes` — cria novo  
-- **GET** `/api/clientes/{id}` — busca por ID  
-- **PUT** `/api/clientes/{id}` — atualiza dados ou bloqueia  
-- **GET** `/api/clientes/bloqueados` — lista bloqueados  
+### 🔒 Clientes
 
-### Faturas
-- **GET** `/api/faturas/clients/{id}` — faturas de um cliente  
-- **PUT** `/api/faturas/{id}/pay` — registra pagamento  
-- **GET** `/api/faturas/atrasadas` — lista faturas atrasadas  
+| Método | Endpoint                   | Descrição                 |
+| ------ | -------------------------- | ------------------------- |
+| GET    | `/api/clientes`            | Lista todos os clientes   |
+| POST   | `/api/clientes`            | Cadastra novo cliente     |
+| GET    | `/api/clientes/{id}`       | Consulta cliente por ID   |
+| PUT    | `/api/clientes/{id}`       | Atualiza/bloqueia cliente |
+| GET    | `/api/clientes/bloqueados` | Lista clientes bloqueados |
+
+#### 🖊️ Exemplo de requisição (POST `/api/clientes`)
+
+```json
+{
+  "nome": "Antonio",
+  "cpf": "03937142096",
+  "dataNascimento": "2003-11-27",
+  "statusBloqueio": "ATIVO",
+  "limiteCredito": 5000
+}
+```
+
+---
+
+### 🔑 Faturas
+
+| Método | Endpoint                    | Descrição                     |
+| ------ | --------------------------- | ----------------------------- |
+| GET    | `/api/faturas/clients/{id}` | Lista faturas de um cliente   |
+| PUT    | `/api/faturas/{id}/pay`     | Registra pagamento da fatura  |
+| GET    | `/api/faturas/atrasadas`    | Lista faturas em atraso (>3d) |
+
+#### 🖊️ Exemplo de requisição (GET `/api/faturas/clients/{id}`)
+
+```json
+[
+  {
+    "id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+    "nomeCliente": "Alice Silva",
+    "dataVencimento": "2025-07-01",
+    "dataPagamento": null,
+    "valor": 500.0,
+    "statusFatura": "B"
+  }
+]
+```
+
+---
+
+## ▶️ Executar a Aplicação
+
+### 🔧 Via Maven
+
+```bash
+./mvnw clean install
+./mvnw spring-boot:run
+```
+
+### 🚧 Via Docker Compose
+
+```bash
+docker-compose up --build
+```
+
+### 🌐 Acesso Swagger
+
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+---
+
+## 🤕 Testes & Services
+
+* `ClienteService` — cadastro, atualização, listagem de bloqueados
+* `FaturaService` — pagamento, atraso e bloqueio
+
+**Testes com JUnit 5 + MockMvc:**
+
+* `ClienteServiceTest`
+* `FaturaServiceTest`
+* `ClienteControllerTest`
+* `FaturaControllerTest`
+
+**Executar todos os testes:**
+
+```bash
+./mvnw test
+```
 
 ---
 
 ## 🗄️ Banco de Dados & Migrações
 
-- **Flyway** cria e versiona os scripts em `src/main/resources/db/migration/`:
-  - **V1__create_tables.sql** — cria tabelas `cliente` e `fatura`  
-  - **V2__seed_data.sql** — insere 10 registros de exemplo  
-- Queries úteis:
-  ```sql
-  -- Clientes bloqueados há mais de 3 dias
-  SELECT c.*
+Scripts Flyway em `src/main/resources/db/migration/`:
+
+* `V1__create_tables.sql` — cria tabelas `cliente` e `fatura`
+* `V2__seed_data.sql` — dados de exemplo
+
+### 📃 Tabelas
+
+#### Tabela `cliente`
+
+```sql
+CREATE TABLE cliente (
+  id UUID PRIMARY KEY,
+  nome VARCHAR(100),
+  cpf VARCHAR(11) UNIQUE NOT NULL,
+  data_nascimento DATE,
+  status_bloqueio VARCHAR(1),
+  limite_credito NUMERIC(10,2)
+);
+```
+
+#### Tabela `fatura`
+
+```sql
+CREATE TABLE fatura (
+  id UUID PRIMARY KEY,
+  cliente_id UUID REFERENCES cliente(id),
+  data_vencimento DATE,
+  data_pagamento DATE,
+  valor NUMERIC(10,2),
+  status VARCHAR(1)
+);
+```
+
+### 🔢 Queries úteis
+
+```sql
+-- Clientes bloqueados com fatura vencida > 3 dias
+SELECT c.*
   FROM cliente c
   JOIN fatura f ON f.cliente_id = c.id
-  WHERE f.status = 'A'
-    AND f.data_vencimento < CURRENT_DATE - INTERVAL '3 days'
-    AND c.status_bloqueio = 'B';
+ WHERE f.status = 'A'
+   AND f.data_vencimento < CURRENT_DATE - INTERVAL '3 days'
+   AND c.status_bloqueio = 'B';
 
-  -- Zera limite de crédito de clientes bloqueados
-  UPDATE cliente
-  SET limite_credito = 0
-  WHERE status_bloqueio = 'B';
+-- Zerar limite de crédito dos bloqueados
+UPDATE cliente
+   SET limite_credito = 0
+ WHERE status_bloqueio = 'B';
+```
 
-## 🛠️ Como Executar Localmente
+---
 
-1. **Clone este repositório**  
-   ```bash
-   git clone https://github.com/SEU_USUARIO/fintech-desafio.git
-   cd fintech-desafio
+## 🚧 Possíveis Melhorias Futuras
+
+* 🔐 Autenticação e autorização (Spring Security + JWT)
+* 🎨 Front‑end com React ou Bootstrap/Tailwind
+* ⚖️ Tratamento de erros padronizado (RFC 7807)
+* ⚡ Cache de dados com Redis ou Spring Cache
+* 📊 Relatórios e dashboards em tempo real
+* ☁️ CI/CD com deploy em nuvem
+
+---
+
+
