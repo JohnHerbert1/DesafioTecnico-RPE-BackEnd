@@ -8,6 +8,14 @@ Este projeto implementa um pequeno sistema de gestão de **Clientes**, **Faturas
 
 Esta aplicação full‑stack simples permite:
 
+### Como rodar o projeto local
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/JohnHerbert1/DesafioTecnico-RPE-BackEnd.git cd DesafioTecnico-RPE-BackEnd
+```
+
 1. **Gerenciar Clientes**
 
    * Criar, listar, atualizar e bloquear clientes inadimplentes
@@ -127,15 +135,14 @@ docker-compose up --build
 
 ## 🗄️ Banco de Dados & Migrações
 
-Scripts Flyway em `src/main/resources/db/migration/`:
-
-* `V1__create_tables.sql` — cria tabelas `cliente` e `fatura`
-* `V2__seed_data.sql` — dados de exemplo
+* cria tabelas `cliente` e `fatura`
+* `data.sql` — dados de exemplo
 ## Enum:
 
 [Enum Status Fatura: *A("Atrasada),P("Paga"),B("Aberto")]
 [Enum Status Bloqueio: *ATIVO("A"),BLOQUEI("B")]
 
+---
 
 ### 📃 Tabelas
 
@@ -191,7 +198,12 @@ UPDATE cliente
 * ⚖️ Tratamento de erros padronizado (RFC 7807)
 ---
 
+### 📌 Link do projeto
+
+➡️ [https://github.com/JohnHerbert1/DesafioTecnico-RPE-Front](https://github.com/JohnHerbert1/DesafioTecnico-RPE-Front)
+
+---
 
 ## Desenvolvedor
 
-*John Herbert
+ ## John Herbert Freire Lourenço
