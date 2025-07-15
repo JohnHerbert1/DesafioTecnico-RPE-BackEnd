@@ -13,8 +13,7 @@ Esta aplicação full‑stack simples permite:
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/JohnHerbert1/DesafioTecnico-RPE-Front.git
-cd DesafioTecnico-RPE-Front
+git clone https://github.com/JohnHerbert1/DesafioTecnico-RPE-BackEnd.git cd DesafioTecnico-RPE-BackEnd
 ```
 
 1. **Gerenciar Clientes**
