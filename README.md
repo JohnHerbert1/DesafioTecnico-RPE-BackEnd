@@ -131,6 +131,11 @@ Scripts Flyway em `src/main/resources/db/migration/`:
 
 * `V1__create_tables.sql` — cria tabelas `cliente` e `fatura`
 * `V2__seed_data.sql` — dados de exemplo
+## Enum:
+
+[Enum Status Fatura: *A("Atrasada),P("Paga"),B("Aberto")]
+[Enum Status Bloqueio: *ATIVO("A"),BLOQUEI("B")]
+
 
 ### 📃 Tabelas
 
@@ -184,10 +189,9 @@ UPDATE cliente
 * 🔐 Autenticação e autorização (Spring Security + JWT)
 * 🎨 Front‑end com React ou Bootstrap/Tailwind
 * ⚖️ Tratamento de erros padronizado (RFC 7807)
-* ⚡ Cache de dados com Redis ou Spring Cache
-* 📊 Relatórios e dashboards em tempo real
-* ☁️ CI/CD com deploy em nuvem
-
 ---
 
 
+## Desenvolvedor
+
+*John Herbert
